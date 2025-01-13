@@ -98,7 +98,7 @@ def bless_df(df, final_df):
 
 
 
-i = 0
+
 def main():
 
     #/workspaces/focused_data_cleanup/to_clean
@@ -107,6 +107,7 @@ def main():
     folder_path = "/workspaces/focused_data_cleanup/to_clean"
     data_dict = load_files(folder_path)
     
+    i = 1
     # Print out the loaded DataFrame names and first few rows as a check
     for filename, df in data_dict.items():
         print(f"=== {filename} ===")
@@ -118,7 +119,7 @@ def main():
         print("DataFrame after cleaning:")
         print(holy_df.head())
         holy_df.to_csv("cleaned/Holy_df" + str(i) + ".csv")
-
+        i += 1
 
 
 
