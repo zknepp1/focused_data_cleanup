@@ -1,0 +1,11 @@
+# Ignore build artifacts
+build/
+dist/
+*.spec
+*.exe
+*.pkg
+*.spec
+__pycache__/
+*.py[cod]
+/workspaces/focused_data_cleanup/build
+/workspaces/focused_data_cleanup/dist
