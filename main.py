@@ -104,7 +104,7 @@ def main():
     #/workspaces/focused_data_cleanup/to_clean
     # Read in your files
 
-    folder_path = "/workspaces/focused_data_cleanup/to_clean"
+    folder_path = "C:\\Users\\CassieMcCain\\OneDrive - Focused School Photography\\Desktop\\focused_data_cleanup-main\\to_clean"
     data_dict = load_files(folder_path)
     
     i = 1
@@ -118,7 +118,7 @@ def main():
 
         print("DataFrame after cleaning:")
         print(holy_df.head())
-        holy_df.to_csv("cleaned/Holy_df" + str(i) + ".csv")
+        holy_df.to_csv("C:\\Users\\CassieMcCain\\OneDrive - Focused School Photography\\Desktop\\focused_data_cleanup-main\\cleaned\\Holy_df" + str(i) + ".csv")
         i += 1
 
 
