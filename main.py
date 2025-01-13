@@ -98,7 +98,7 @@ def bless_df(df, final_df):
 
 
 
-
+i = 0
 def main():
 
     #/workspaces/focused_data_cleanup/to_clean
@@ -117,7 +117,7 @@ def main():
 
         print("DataFrame after cleaning:")
         print(holy_df.head())
-
+        holy_df.to_csv("cleaned/Holy_df" + str(i) + ".csv")
 
 
 
