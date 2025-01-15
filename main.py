@@ -131,6 +131,10 @@ def main():
         out_filepath = os.path.join(cleaned_folder, out_filename)
         holy_df.to_csv(out_filepath, index=False)
         i += 1
+    
+    # Your main code logic here
+    print("Program finished. Press Enter to exit.")
+    input()
 
 
 
