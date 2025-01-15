@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import re
+import os
 
 
 def load_files(folder_path: str) -> dict:
@@ -104,9 +105,18 @@ def main():
     #/workspaces/focused_data_cleanup/to_clean
     # Read in your files
 
-    folder_path = "C:\\Users\\CassieMcCain\\OneDrive - Focused School Photography\\Desktop\\focused_data_cleanup-main\\to_clean"
-    data_dict = load_files(folder_path)
-    
+    # Create two folder paths relative to the current script (cwd)
+    to_clean_folder = os.path.join(os.getcwd(), "to_clean")
+    cleaned_folder = os.path.join(os.getcwd(), "cleaned")
+
+    # Make the folders if they don't exist
+    os.makedirs(to_clean_folder, exist_ok=True)
+    os.makedirs(cleaned_folder, exist_ok=True)
+
+    # Now load CSV files from `to_clean_folder`
+    data_dict = load_files(to_clean_folder)
+
+
     i = 1
     # Print out the loaded DataFrame names and first few rows as a check
     for filename, df in data_dict.items():
@@ -116,9 +126,10 @@ def main():
 
         holy_df = bless_df(df, pd.DataFrame(columns=['Student UID', 'First Name', 'Last Name', 'Grade', 'Teacher', 'Email', 'Phone']))
 
-        print("DataFrame after cleaning:")
-        print(holy_df.head())
-        holy_df.to_csv("C:\\Users\\CassieMcCain\\OneDrive - Focused School Photography\\Desktop\\focused_data_cleanup-main\\cleaned\\Holy_df" + str(i) + ".csv")
+        # Save the cleaned DataFrame to the cleaned folder
+        out_filename = f"Holy_df{i}.csv"
+        out_filepath = os.path.join(cleaned_folder, out_filename)
+        holy_df.to_csv(out_filepath, index=False)
         i += 1
 
 
