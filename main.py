@@ -92,7 +92,7 @@ def bless_df(df, final_df, logger: logging.Logger):
     """
     logger.debug("Starting DataFrame cleanup process.")
 
-    uid_regex = re.compile(r'^\d+$')  # Regex to match strings with only digits
+    uid_regex = re.compile(r'^(?!.*(\d).*\1)\d+$')  # Regex to match strings with only digits
 
     # Ensure final_df is a DataFrame
     if not isinstance(final_df, pd.DataFrame):
@@ -123,7 +123,7 @@ def bless_df(df, final_df, logger: logging.Logger):
             elif 'email' in col_lower:
                 final_df['Email'] = df[col]
 
-            elif 'teacher' in col_lower or 'homeroom' in col_lower:
+            elif 'home' in col_lower or 'teacher' in col_lower:
                 final_df['Teacher'] = df[col].apply(lambda x: x.split(',')[0].strip() if pd.notna(x) else x)
 
             elif 'phone' in col_lower:
@@ -133,13 +133,8 @@ def bless_df(df, final_df, logger: logging.Logger):
             elif 'student name' in col_lower:
                 # Example of splitting on spaces
                 clean_names = df[col].str.replace(',', '', regex=False)
-                final_df['First Name'] = clean_names.apply(
-                    lambda x: x.split(' ')[0] if isinstance(x, str) else x
-                )
-                final_df['Last Name'] = clean_names.apply(
-                    lambda x: ' '.join(x.split(' ')[1:]) 
-                    if isinstance(x, str) and len(x.split(' ')) > 1 else pd.NA
-                )
+                final_df['First Name'] = clean_names.apply(lambda x: x.split(' ')[0].capitalize() if isinstance(x, str) else x)
+                final_df['Last Name'] = clean_names.apply(lambda x: ' '.join([name.capitalize() for name in x.split(' ')[1:]]) if isinstance(x, str) and len(x.split(' ')) > 1 else pd.NA)
 
             # If the column doesn't match a known pattern, check for numeric UID
             elif df[col].apply(lambda x: bool(uid_regex.match(x))).all():
@@ -150,6 +145,8 @@ def bless_df(df, final_df, logger: logging.Logger):
     except Exception as e:
         logger.error(f"Error in bless_df: {e}", exc_info=True)
 
+    # Replacing na with blanks
+    final_df = final_df.fillna('')
 
     return final_df
 
