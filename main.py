@@ -53,6 +53,9 @@ def load_files(folder_path: str, logger: logging.Logger) -> dict:
     folder = Path(folder_path)
     data_dict = {}
 
+    # List of encodings to try for CSV files
+    encodings_to_try = ['utf-8', 'latin1', 'ISO-8859-1', 'utf-16']
+
     # Iterate over all items in the folder
     for file_path in folder.glob('*'):
         # Skip if it's not a file
@@ -65,9 +68,17 @@ def load_files(folder_path: str, logger: logging.Logger) -> dict:
 
         try:
             if ext == '.csv':
-                df = pd.read_csv(file_path)
-                data_dict[file_path.name] = df
-                logger.info(f"Successfully loaded CSV file: {file_path.name}")
+                for encoding in encodings_to_try:
+                    try:
+                        df = pd.read_csv(file_path, encoding=encoding)
+                        data_dict[file_path.name] = df
+                        logger.info(f"Successfully loaded CSV file: {file_path.name} with encoding {encoding}")
+                        break
+                    except UnicodeDecodeError:
+                        logger.warning(f"Failed to decode {file_path.name} with encoding {encoding}")
+                else:
+                    logger.error(f"Unable to load CSV file {file_path.name} with any tested encoding.")
+
 
             elif ext in ['.xls', '.xlsx']:
                 df = pd.read_excel(file_path)
@@ -189,8 +200,9 @@ def main():
                 logger
             )
 
-            out_filename = f"Holy_df{i}.csv"
-            out_filepath = os.path.join(cleaned_folder, out_filename)
+            # Generate the cleaned filename
+            cleaned_filename = f"{os.path.splitext(filename)[0]}_cleaned.csv"
+            out_filepath = os.path.join(cleaned_folder, cleaned_filename)
 
             try:
                 holy_df.to_csv(out_filepath, index=False)
