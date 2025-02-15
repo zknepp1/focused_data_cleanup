@@ -95,78 +95,78 @@ def load_files(folder_path: str, logger: logging.Logger) -> dict:
     return data_dict
 
 
-
-
 def bless_df(df, final_df, logger: logging.Logger):
     """
     Clean and map DataFrame columns to a final, standardized DataFrame format.
     """
     logger.debug("Starting DataFrame cleanup process.")
 
-    uid_regex = re.compile(r'^\d+$')  # Regex to match strings with only digits
+    # Regex for detecting numeric student IDs (no fixed length)
+    uid_regex = re.compile(r'^\d+$')
+
+    # Columns that should NEVER be mistaken for Student ID
+    excluded_columns = {"site", "location", "building"}  
 
     # Ensure final_df is a DataFrame
     if not isinstance(final_df, pd.DataFrame):
         final_df = pd.DataFrame()
 
-
     try:
-        # Clean the input df
-        df = df.astype(str)
-        df = df.dropna(how='all').reset_index(drop=True)
-
-        # Reindex final_df to match df after cleaning
+        df = df.astype(str).dropna(how='all').reset_index(drop=True)
         final_df = final_df.reindex(df.index, fill_value=pd.NA)
+
+        # Identify the best column to use as 'Student UID'
+        possible_uid_cols = {}
 
         for col in df.columns:
             col_lower = col.lower()
 
-            # Check for known columns first, before numeric pattern
+            # Exclude known non-ID columns
+            if col_lower in excluded_columns:
+                logger.debug(f"Skipping known non-ID column: {col}")
+                continue
+
+            # Check for numeric values
+            numeric_values = df[col].apply(lambda x: x.isdigit())
+            valid_ids = df[col][numeric_values].apply(lambda x: bool(uid_regex.match(x)))
+
+            # Ensure the column has enough unique values (avoid static values like "705" for all rows)
+            unique_values = df[col][valid_ids].nunique()
+            if valid_ids.sum() > 0 and unique_values > 5:  # Ensure it's not just 1-2 repeated values
+                possible_uid_cols[col] = valid_ids.sum()
+
+        if possible_uid_cols:
+            # Pick the column with the most valid numeric entries
+            best_uid_col = max(possible_uid_cols, key=possible_uid_cols.get)
+            final_df['Student UID'] = df[best_uid_col]
+            logger.info(f"Identified Student ID column: {best_uid_col}")
+        else:
+            logger.warning("No valid Student ID column found.")
+
+        # Process other relevant fields
+        for col in df.columns:
+            col_lower = col.lower()
+
             if 'grade' in col_lower:
                 final_df['Grade'] = df[col]
-
             elif 'last' in col_lower:
-                final_df['Last Name'] = df[col]
-
+                final_df['Last Name'] = df[col].apply(lambda x: x.capitalize() if isinstance(x, str) else x)
             elif 'first' in col_lower:
-                final_df['First Name'] = df[col]
-
+                final_df['First Name'] = df[col].apply(lambda x: x.capitalize() if isinstance(x, str) else x)
             elif 'email' in col_lower:
                 final_df['Email'] = df[col]
-
             elif 'home' in col_lower or 'teacher' in col_lower:
                 final_df['Teacher'] = df[col].apply(lambda x: x.split(',')[0].strip() if pd.notna(x) else x)
-
             elif 'phone' in col_lower:
-                # Replace non-digit characters
-                final_df['Phone'] = df[col].apply(lambda x: re.sub(r'\D', '', str(x)))
-
-            elif 'student name' in col_lower:
-                # Example of splitting on spaces
-                clean_names = df[col].str.replace(',', '', regex=False)
-                final_df['First Name'] = clean_names.apply(lambda x: x.split(' ')[0].capitalize() if isinstance(x, str) else x)
-                final_df['Last Name'] = clean_names.apply(lambda x: ' '.join([name.capitalize() for name in x.split(' ')[1:]]) if isinstance(x, str) and len(x.split(' ')) > 1 else pd.NA)
-
-            elif 'student' in col_lower or 'uid' in col_lower:
-                # Check if column contains only digits (UID)
-                if df[col].apply(lambda x: bool(uid_regex.match(x))).all():
-                    final_df['Student UID'] = df[col]
-
-            else:
-                # Check for numeric UID column with unique digits
-                try:
-                    if df[col].apply(lambda x: bool(uid_regex.match(x))).all():
-                        final_df['Student UID'] = df[col]
-                except Exception as e:
-                    logger.error(f"Error matching UID regex for column {col}: {e}", exc_info=True)
-
+                final_df['Phone'] = df[col].apply(lambda x: re.sub(r'\D', '', str(x)))  # Remove non-numeric characters
+            elif col_lower in excluded_columns:
+                final_df[col] = df[col]  # Preserve excluded columns like "Site"
 
         logger.debug("DataFrame cleanup and mapping completed successfully.")
 
     except Exception as e:
         logger.error(f"Error in bless_df: {e}", exc_info=True)
 
-    # Replacing na with blanks
     final_df = final_df.fillna('')
 
     return final_df
