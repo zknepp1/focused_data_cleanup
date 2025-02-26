@@ -1,0 +1,137 @@
+2025-02-26 00:06:47,927 - my_logger - INFO - Starting the program...
+2025-02-26 00:06:47,928 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:06:47,928 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:06:47,929 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:10:58,857 - my_logger - INFO - Starting the program...
+2025-02-26 00:10:58,857 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:10:58,857 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:10:58,867 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:10:58,869 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:10:58,869 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:10:58,870 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:10:58,878 - my_logger - ERROR - Error in bless_df: Unalignable boolean Series provided as indexer (index of the boolean Series and of the indexed object do not match).
+Traceback (most recent call last):
+  File "/workspaces/focused_data_cleanup/main.py", line 134, in bless_df
+    unique_values = df[col][valid_ids].nunique()
+                    ~~~~~~~^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pandas/core/series.py", line 1149, in __getitem__
+    key = check_bool_indexer(self.index, key)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 2662, in check_bool_indexer
+    raise IndexingError(
+pandas.errors.IndexingError: Unalignable boolean Series provided as indexer (index of the boolean Series and of the indexed object do not match).
+2025-02-26 00:10:58,884 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:10:58,884 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:10:58,885 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:10:58,893 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:10:58,894 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:10:58,896 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:10:58,896 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:16:03,371 - my_logger - INFO - Starting the program...
+2025-02-26 00:16:03,371 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:16:03,372 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:16:03,375 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:16:03,378 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:16:03,378 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:16:03,379 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:16:03,383 - my_logger - ERROR - Error in bless_df: 
+Traceback (most recent call last):
+  File "/workspaces/focused_data_cleanup/main.py", line 134, in bless_df
+    unique_values = df.loc[valid_ids, col].nunique()
+                    ~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 1184, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 1377, in _getitem_tuple
+    return self._getitem_tuple_same_dim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.local/lib/python3.12/site-packages/pandas/core/indexing.py", line 1023, in _getitem_tuple_same_dim
+    assert retval.ndim == self.ndim
+AssertionError
+2025-02-26 00:16:03,388 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:16:03,388 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:16:03,389 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:16:03,397 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:16:03,399 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:16:03,401 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:16:03,401 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:17:58,896 - my_logger - INFO - Starting the program...
+2025-02-26 00:17:58,896 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:17:58,896 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:17:58,900 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:17:58,901 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:17:58,902 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:17:58,903 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:17:58,912 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:17:58,913 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:17:58,916 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:17:58,916 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:17:58,917 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:17:58,925 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:17:58,926 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:17:58,927 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:17:58,928 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:18:01,821 - my_logger - INFO - Starting the program...
+2025-02-26 00:18:01,822 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:18:01,822 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:18:01,825 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:18:01,828 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:18:01,828 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:18:01,829 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:18:01,840 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:18:01,841 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:18:01,844 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:18:01,844 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:18:01,845 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:18:01,853 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:18:01,854 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:18:01,856 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:18:01,856 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:18:21,847 - my_logger - INFO - Starting the program...
+2025-02-26 00:18:21,848 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:18:21,848 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:18:21,851 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:18:21,853 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:18:21,853 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:18:21,854 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:18:21,864 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:18:21,865 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:18:21,867 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:18:21,868 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:18:21,868 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:18:21,879 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:18:21,880 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:18:21,882 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:18:21,882 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:23:35,972 - my_logger - INFO - Starting the program...
+2025-02-26 00:23:35,972 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:23:35,972 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:23:35,976 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:23:35,977 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:23:35,977 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:23:35,978 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:23:35,989 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:23:35,989 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:23:35,992 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:23:35,992 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:23:35,993 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:23:36,001 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:23:36,002 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:23:36,004 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:23:36,004 - my_logger - INFO - Program finished. Press Enter to exit.
+2025-02-26 00:25:41,422 - my_logger - INFO - Starting the program...
+2025-02-26 00:25:41,422 - my_logger - DEBUG - Ensured 'to_clean' and 'cleaned' folders exist in /workspaces/focused_data_cleanup
+2025-02-26 00:25:41,422 - my_logger - INFO - Loading files from folder: /workspaces/focused_data_cleanup/to_clean
+2025-02-26 00:25:41,425 - my_logger - INFO - Successfully loaded CSV file: HES_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:25:41,427 - my_logger - INFO - Successfully loaded CSV file: HJH_2025_Sprin.csv with encoding utf-8
+2025-02-26 00:25:41,427 - my_logger - INFO - Processing file: HES_2025_Sprin.csv
+2025-02-26 00:25:41,428 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:25:41,442 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:25:41,444 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:25:41,447 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HES_2025_Sprin_cleaned.csv
+2025-02-26 00:25:41,447 - my_logger - INFO - Processing file: HJH_2025_Sprin.csv
+2025-02-26 00:25:41,448 - my_logger - DEBUG - Starting DataFrame cleanup process.
+2025-02-26 00:25:41,456 - my_logger - INFO - Identified Student ID column: Student ID
+2025-02-26 00:25:41,458 - my_logger - DEBUG - DataFrame cleanup and mapping completed successfully.
+2025-02-26 00:25:41,460 - my_logger - INFO - Cleaned data saved to: /workspaces/focused_data_cleanup/cleaned/HJH_2025_Sprin_cleaned.csv
+2025-02-26 00:25:41,460 - my_logger - INFO - Program finished. Press Enter to exit.

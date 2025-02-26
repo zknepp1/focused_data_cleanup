@@ -131,7 +131,9 @@ def bless_df(df, final_df, logger: logging.Logger):
             valid_ids = df[col][numeric_values].apply(lambda x: bool(uid_regex.match(x)))
 
             # Ensure the column has enough unique values (avoid static values like "705" for all rows)
-            unique_values = df[col][valid_ids].nunique()
+            df = df.reset_index(drop=True)
+            valid_ids = df[col].apply(lambda x: bool(uid_regex.match(x)))
+            unique_values = df.loc[valid_ids, col].nunique()
             if valid_ids.sum() > 0 and unique_values > 5:  # Ensure it's not just 1-2 repeated values
                 possible_uid_cols[col] = valid_ids.sum()
 
@@ -153,12 +155,13 @@ def bless_df(df, final_df, logger: logging.Logger):
                 final_df['Last Name'] = df[col].apply(lambda x: x.capitalize() if isinstance(x, str) else x)
             elif 'first' in col_lower:
                 final_df['First Name'] = df[col].apply(lambda x: x.capitalize() if isinstance(x, str) else x)
-            elif 'email' in col_lower:
+            elif 'email' in col_lower or 'mail' in col_lower:
                 final_df['Email'] = df[col]
             elif 'home' in col_lower or 'teacher' in col_lower:
                 final_df['Teacher'] = df[col].apply(lambda x: x.split(',')[0].strip() if pd.notna(x) else x)
-            elif 'phone' in col_lower:
-                final_df['Phone'] = df[col].apply(lambda x: re.sub(r'\D', '', str(x)))  # Remove non-numeric characters
+            elif 'phone' in col_lower or 'cell' in col_lower:
+                final_df['Phone'] = df[col].apply(lambda x: re.sub(r'[^\d]', '', str(x)) if pd.notna(x) else x)
+
             elif col_lower in excluded_columns:
                 final_df[col] = df[col]  # Preserve excluded columns like "Site"
 
